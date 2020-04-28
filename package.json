@@ -1,0 +1,20 @@
+{
+  "name": "blog-app",
+  "version": "1.0.0",
+  "description": "a simple blog app to learn node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Azad Mamun",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
