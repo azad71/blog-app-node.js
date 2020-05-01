@@ -1,7 +1,15 @@
 {
   "name": "blog-app",
   "version": "1.0.0",
-  "description": "a simple blog app to learn node.js",
+  "description": "a simple blog app to teach node.js",
+  "keywords": [
+    "Nodejs",
+    "Javascript",
+    "MongoDB",
+    "Express.js",
+    "Bootstrap",
+    "CRUD"
+  ],
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
