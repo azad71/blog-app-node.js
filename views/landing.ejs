@@ -4,6 +4,7 @@
 <body>
 
     <h1 class="text-center p-3 display-3 mb-3">Welcome To My Blog</h1>
+    <%- include ('./partials/alert.ejs') %>
 
     <div class="container">
         <div class="row my-3">
@@ -14,6 +15,7 @@
                 </p>
 
                 <form class="p-3" action="/auth/signup" method="POST">
+
 
                     <div class="form-group">
                         <label class="form-control-label">Name</label>

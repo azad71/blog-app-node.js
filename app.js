@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const session = require("express-session");
+const flash = require("connect-flash");
 const MongoStore = require("connect-mongo")(session);
 
 // load models
@@ -25,19 +26,31 @@ app.use(
 );
 
 app.use(async (req, res, next) => {
-  if (req.user) {
-    const user = await User.findById(req.user._id);
-    req.session.user = user;
-    req.session.isLoggedIn = true;
-  } else {
-    req.session.isLoggedIn = false;
+  try {
+    // check if session has any user attached
+    if (!req.session.user) {
+      return next();
+    }
+    const user = await User.findById(req.session.user._id);
+    req.user = user;
+    return next();
+  } catch (error) {
+    console.log(error);
+    next();
   }
-  next();
 });
 
 // app configuartion
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
+
+// flash message configuration
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.error = req.flash("error");
+  res.locals.warning = req.flash("warning");
+  next();
+});
 
 // db config
 mongoose.connect("mongodb://localhost:27017/blog_app", {
