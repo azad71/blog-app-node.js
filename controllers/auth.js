@@ -64,7 +64,8 @@ exports.postSignup = async (req, res, next) => {
     });
 
     const newUser = await user.save();
-    console.log(newUser);
+    req.session.user = newUser;
+    await req.session.save();
     res.redirect("/home");
   } catch (error) {
     console.log(error.message);

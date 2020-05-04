@@ -1,6 +1,6 @@
 exports.isAuthenticated = (req, res, next) => {
   if (!req.session.isLoggedIn) {
-    console.log("Unauthorized access not granted");
+    req.flash("error", "Unauthorized access");
     return res.redirect("back");
   }
   next();

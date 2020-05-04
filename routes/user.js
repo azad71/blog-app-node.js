@@ -11,12 +11,36 @@ router.get("/", userControllers.getLandingPage);
 
 router.get("/home", userControllers.getHome);
 
-router.get("/profile", userControllers.getViewProfile);
+router.get("/profiles", userControllers.getAllProfile);
 
 router.post(
   "/user/update-password",
   auth.isAuthenticated,
   userControllers.postUpdatePassword
+);
+
+router.post(
+  "/user/update-profile",
+  auth.isAuthenticated,
+  userControllers.postUpdateProfile
+);
+
+router.post(
+  "/user/delete-profile",
+  auth.isAuthenticated,
+  userControllers.postDeleteUserProfile
+);
+
+router.get(
+  "/user/profile",
+  auth.isAuthenticated,
+  userControllers.getUserProfile
+);
+
+router.post(
+  "/user/update-image",
+  auth.isAuthenticated,
+  userControllers.postUploadUserImage
 );
 
 module.exports = router;

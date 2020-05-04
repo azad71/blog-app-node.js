@@ -2,8 +2,11 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const path = require("path");
 const session = require("express-session");
 const flash = require("connect-flash");
+const multer = require("multer");
+const uid = require("uid");
 const MongoStore = require("connect-mongo")(session);
 
 // load models
@@ -52,6 +55,32 @@ app.use((req, res, next) => {
   next();
 });
 
+// image configuration
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${uid()}__${file.originalname}`);
+  },
+});
+
+const filefilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+app.use(
+  multer({ storage: fileStorage, fileFilter: filefilter }).single("image")
+);
+app.use("/images", express.static(path.join(__dirname, "images")));
 // db config
 mongoose.connect("mongodb://localhost:27017/blog_app", {
   useNewUrlParser: true,

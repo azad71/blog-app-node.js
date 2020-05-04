@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema(
       min: 6,
     },
 
+    gender: {
+      type: String,
+    },
+
     image: {
       type: String,
     },
