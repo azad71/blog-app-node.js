@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <h5 class="card-title"><%= post.title %></h5>
                         <div class="d-flex justify-content-between pt-3">
-                            <p class="text-muted">Posted by: <em><%= post.author%></em></p>
+                            <p class="text-muted">Posted by: <em><%= post.author.name%></em></p>
                             <p class="text-muted">Date: <%= new Date(post.createdAt).toDateString()%></p>
                         </div>
                         <p class="card-text">

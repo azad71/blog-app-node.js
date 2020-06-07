@@ -9,8 +9,14 @@ const postSchema = new Schema(
     },
 
     author: {
-      type: String,
-      required: true,
+      id: {
+        type: String,
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
     },
 
     category: {
@@ -34,15 +40,6 @@ const postSchema = new Schema(
           type: String,
           required: true,
         },
-
-        name: {
-          type: String,
-        },
-
-        image: {
-          type: String,
-        },
-
         date: {
           type: Date,
           default: Date.now,

@@ -15,7 +15,7 @@ exports.getLandingPage = (req, res, next) => {
 
 exports.getHome = async (req, res, next) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().sort("-createdAt");
     res.render("user/home", { posts: posts });
   } catch (error) {
     console.log(error.message);

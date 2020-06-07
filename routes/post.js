@@ -1,19 +1,49 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 // importing logics
-const postControllers = require('../controllers/post');
+const postControllers = require("../controllers/post");
 
-router.get('/create-new-post', postControllers.getCreatePost);
+// loading middleware
+const auth = require("../middlewares/auth");
 
-router.post('/create-new-post', postControllers.postCreatePost);
+/*
+@access: Private
+@desc: get user to Create Post form
+*/
+router.get(
+  "/create-new-post",
+  auth.isAuthenticated,
+  postControllers.getCreatePost
+);
 
-router.get('/post/view/:post_id', postControllers.getPost);
+router.post(
+  "/create-new-post",
+  auth.isAuthenticated,
+  postControllers.postCreatePost
+);
 
-router.get('/post/update/:post_id', postControllers.getUpdatePost);
+router.get("/post/view/:post_id", postControllers.getPost);
 
-router.post('/post/update/:post_id', postControllers.postUpdatePost);
+router.get(
+  "/post/update/:post_id",
+  auth.isAuthenticated,
+  auth.checkPostOwnership,
+  postControllers.getUpdatePost
+);
 
-router.post('/post/delete/:post_id', postControllers.postDeletePost);
+router.post(
+  "/post/update/:post_id",
+  auth.isAuthenticated,
+  auth.checkPostOwnership,
+  postControllers.postUpdatePost
+);
+
+router.post(
+  "/post/delete/:post_id",
+  auth.isAuthenticated,
+  auth.checkPostOwnership,
+  postControllers.postDeletePost
+);
 
 module.exports = router;

@@ -65,6 +65,7 @@ exports.postSignup = async (req, res, next) => {
 
     const newUser = await user.save();
     req.session.user = newUser;
+    req.session.isLoggedIn = true;
     await req.session.save();
     res.redirect("/home");
   } catch (error) {

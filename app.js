@@ -36,6 +36,11 @@ app.use(async (req, res, next) => {
     }
     const user = await User.findById(req.session.user._id);
     req.user = user;
+    res.locals.user = {
+      id: user._id,
+      username: user.username,
+    };
+
     return next();
   } catch (error) {
     console.log(error);

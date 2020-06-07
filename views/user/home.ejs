@@ -5,15 +5,16 @@
     <%- include ('../partials/navbar') %>
 
     <div class="container">
-        <% if(posts.length > 0) { %>
+				<% if(posts.length > 0) { %>
+					<%- include ('../partials/alert') %>
             <% posts.forEach(post => { %>
-                <div class="row my-3">
+                <div class="row my-3"> 
                     <div class="col-md-8 mx-auto">
                         <div class="card">
                             <div class="card-body">
                               <h5 class="card-title"><%= post.title %></h5>
                               <div class="d-flex justify-content-between pt-3">
-                                    <p class="text-muted">Posted by: <em><%= post.author%></em></p>
+                                    <p class="text-muted">Posted by: <em><%= post.author.name%></em></p>
                                     <p class="text-muted">Date: <%= new Date(post.createdAt).toDateString()%></p>
                                 </div>
                                 <p class="card-text">
@@ -21,9 +22,9 @@
                                     <a href="/post/view/<%=post._id%>">read more</a>
                                 </p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted mr-5">Comments(10)</p>
-                                    <div class="d-flex justify-content-end">
-
+																		<p class="text-muted mr-5">Comments(10)</p>
+																		<% if(user.id.toString() === post.author.id.toString()) { %>
+																			<div class="d-flex justify-content-end">
                                         <a class="btn btn-outline-primary btn-sm mx-1" href="/post/update/<%=post._id%>">
                                             Update
                                         </a>
@@ -31,10 +32,9 @@
                                         <form class="form-inline" action="/post/delete/<%=post._id%>" method="POST">
                                             <button class="btn btn-outline-danger btn-sm mx-1">Delete</button>
                                         </form>
-
                                     </div>
+																	<%	} %> 
                                 </div>
-                                
                             </div>
                           </div>
                     </div>
